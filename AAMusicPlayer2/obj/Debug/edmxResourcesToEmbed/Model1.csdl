@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="savedlistsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="AAList">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="artist" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="title" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="genre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="filename" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="path" Type="String" MaxLength="999" FixedLength="false" Unicode="true" />
+    <Property Name="length" Type="Int32" />
+    <Property Name="dateAdded" Type="DateTime" Precision="3" />
+    <Property Name="album" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="order" Type="Int32" />
+  </EntityType>
+  <EntityType Name="AAPList">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="artist" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="title" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="genre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="filename" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="path" Type="String" MaxLength="999" FixedLength="false" Unicode="true" />
+    <Property Name="length" Type="Int32" />
+    <Property Name="dateAdded" Type="DateTime" Precision="3" />
+    <Property Name="album" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="order" Type="Int32" />
+    <Property Name="after" Type="Int32" />
+  </EntityType>
+  <EntityContainer Name="savedlistsEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="AALists" EntityType="Self.AAList" />
+    <EntitySet Name="AAPLists" EntityType="Self.AAPList" />
+  </EntityContainer>
+</Schema>

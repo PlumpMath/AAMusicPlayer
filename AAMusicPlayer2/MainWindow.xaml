@@ -1,0 +1,202 @@
+﻿<Window xmlns:AAMusicPlayer2="clr-namespace:AAMusicPlayer2"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:wpf="clr-namespace:Vlc.DotNet.Wpf;assembly=Vlc.DotNet.Wpf"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"  x:Class="AAMusicPlayer2.MainWindow"
+        Title="AAMusicPlayer" Height="554.5" Width="654" MinWidth="600" MinHeight="540" Closing="closing" Background="#FF0E8181" Icon="newicon.ico">
+    <Window.Resources>
+
+        <ResourceDictionary>
+            <AAMusicPlayer2:savedlistsDataSet x:Key="savedlistsDataSet"/>
+        </ResourceDictionary>
+
+    </Window.Resources>
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="*" MinHeight="200"/>
+            <RowDefinition Height="60" />
+            <RowDefinition Height="60" />
+            <RowDefinition Height="60" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <wpf:VlcControl Grid.Row="0" Grid.Column="1" x:Name="myControl" Visibility="Hidden"/>
+        <Label Content="All"  Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Style="{DynamicResource LabelStyle1}"/>
+        <Label Content="Playlist" Grid.Row="0" Grid.Column="6" Style="{DynamicResource LabelStyle1}" Grid.RowSpan="2" Grid.ColumnSpan="2"/>
+        <Label x:Name="playingLabel" Content="" Grid.Row="6"  Grid.ColumnSpan="5" Grid.Column="6" FontWeight="Bold" Foreground="White" FontFamily="Garamond" FontSize="16"/>
+        <Label x:Name="timeLabel" Content="" Grid.Row="1"  Grid.ColumnSpan="2" Grid.Column="10" MouseLeftButtonUp="ChangeDisplayTime" Foreground="White" FontWeight="Bold" FontFamily="Garamond"/>
+        <Slider Name="PositionSlider" Grid.Column="8" Grid.Row="1" Grid.ColumnSpan="2" ValueChanged="PositionChange"/>
+        <Label x:Name="RemainingLabel" Content="0 files remaining" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Visibility="Hidden"/>
+        <Button x:Name="CancelButton" Content="Cancel" Grid.Row="1" Grid.Column="4" Click="Cancel_Click" Visibility="Hidden"/>
+        <Border Grid.ColumnSpan="5" Grid.Column="0" Style="{DynamicResource BorderStyle1}" Grid.Row="2">
+            <TextBox x:Name="fullsearch" LostFocus="search_LostFocus" GotFocus="search_GotFocus" Text="Search..." TextChanged="Search" Style="{DynamicResource TextBoxStyle1}"/>
+        </Border>
+        <Border Grid.ColumnSpan="5" Grid.Column="6" Grid.Row="2" Style="{DynamicResource BorderStyle1}">
+            <TextBox x:Name="plsearch" LostFocus="search_LostFocus" GotFocus="search_GotFocus" Text="Search..." TextChanged="PLSearch" Style="{DynamicResource TextBoxStyle1}"/>
+        </Border>
+        <Button Content="X" Grid.Column="4" Grid.Row="2" Width="20" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center" Click="ClearS1" Style="{DynamicResource XButtonStyle}" RenderTransformOrigin="-2.171,0.725" Margin="10,10,22.166,10"/>
+        <Button Content="X" Grid.Column="10" Grid.Row="2" Width="20" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center" Click="ClearS2" Style="{DynamicResource XButtonStyle}" Margin="10,10,22.166,10"/>
+        <DataGrid VirtualizingPanel.IsVirtualizing="False" SelectionUnit="FullRow" Grid.ColumnSpan="5" IsReadOnly="True" x:Name="fulllistgrid" Grid.Row="3" Grid.Column="0" HeadersVisibility="None" Grid.RowSpan="2" AutoGenerateColumns="False" ItemsSource="{Binding}" Style="{DynamicResource DataGridStyle1}" VerticalGridLinesBrush="#00000000" BorderThickness="0">
+            <DataGrid.Resources>
+                <Style TargetType="{x:Type DataGridRow}">
+                    <EventSetter Event="Control.MouseDoubleClick" Handler="AddToPlayList"/>
+                </Style>
+            </DataGrid.Resources>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Display" Width="1*" Binding="{Binding displayName}"/>
+                <DataGridTextColumn Header="Display" Width="35" Binding="{Binding lenAsString}"/>
+            </DataGrid.Columns>
+            <DataGrid.CellStyle>
+                <Style TargetType="DataGridCell">
+                    <Setter Property="BorderThickness" Value="0"/>
+                </Style>
+            </DataGrid.CellStyle> 
+        </DataGrid>
+        <DataGrid VirtualizingPanel.IsVirtualizing="False" SelectionUnit="FullRow" x:Name="playlistgrid" IsReadOnly="True" Grid.ColumnSpan="5" Grid.RowSpan="2" Grid.Row="3" Grid.Column="6" HeadersVisibility="None" AutoGenerateColumns="False" ItemsSource="{Binding}" Style="{DynamicResource DataGridStyle1}">
+            <DataGrid.Resources>
+                <Style TargetType="{x:Type DataGridRow}">
+                    <EventSetter Event="Control.MouseDoubleClick" Handler="PLPlay"/>
+                </Style>
+            </DataGrid.Resources>
+
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Display" Width="1*" Binding="{Binding displayName}"/>
+                <DataGridTextColumn Header="Length" Width="40" Binding="{Binding lenAsString}"/>
+            </DataGrid.Columns>
+            <DataGrid.CellStyle>
+                <Style TargetType="DataGridCell">
+                    <Setter Property="BorderThickness" Value="0"/>
+                </Style>
+            </DataGrid.CellStyle>
+        </DataGrid>
+        <Button Click="OpenCM" Name="AddButton" ContextMenuService.Placement="Top" Content="Add" Grid.Row="5" Grid.Column="0" Style="{DynamicResource ButtonStyle2}">
+            <Button.ContextMenu>
+                <ContextMenu x:Name="MyContextMenu" Style="{DynamicResource ContextMenuStyle}">
+                <MenuItem Header="Add File(s)" Click="AddFile_Click" />
+                <MenuItem Header="Add Directory" Click="AddDir_Click"/>
+                </ContextMenu>
+            </Button.ContextMenu>
+        </Button>
+
+        <Button Click="OpenCM" ContextMenuService.Placement="Top" Content="Rem" Grid.Row="5" Grid.Column="1" Style="{DynamicResource ButtonStyle2}">
+            <Button.ContextMenu>
+                <ContextMenu Style="{DynamicResource ContextMenuStyle}">
+                    <MenuItem Header="Remove Selected" Click="RemSel_Click"/>
+                    <MenuItem Header="Crop" Click="Crop_Click"/>
+                    <MenuItem Header="Remove All" Click="RemAll_Click"/>
+                    <MenuItem Header="Remove Duplicates" Click="RemDup_Click"/>
+                    <MenuItem Header="Remove Missing Files" Click="RemMissing_Click"/>
+                    <MenuItem Header="Physically Remove" Click="PhysicallyRem_Click"/>
+                </ContextMenu>
+            </Button.ContextMenu>
+        </Button>
+        <Button Click="OpenCM" ContextMenuService.Placement="Top" Content="Sel" Grid.Row="5" Grid.Column="2" Style="{DynamicResource ButtonStyle2}">
+            <Button.ContextMenu>
+                <ContextMenu Style="{DynamicResource ContextMenuStyle}">
+                    <MenuItem Header="Select All"  Click="SelectAll_Click"/>
+                    <MenuItem Header="Select None" Click="SelNone_Click"/>
+                    <MenuItem Header="Invert Selection" Click="InvertSel_Click"/>
+                </ContextMenu>
+            </Button.ContextMenu>
+        </Button>
+        <Button Content="Info" Grid.Row="5" Grid.Column="3" Click="FileInfo_Click" Style="{DynamicResource ButtonStyle2}" Margin="0,1.5,0,58.5" Grid.RowSpan="2"/>
+        <Button Click="OpenCM" ContextMenuService.Placement="Top" Content="Sort" Grid.Row="5" Grid.Column="4" Style="{DynamicResource ButtonStyle2}">
+            <Button.ContextMenu>
+                <ContextMenu Style="{DynamicResource ContextMenuStyle}">
+                    <MenuItem Header="Date Added" Click="SortDate_Click"/>
+                    <MenuItem Header="Song Title" Click="SortTitle_Click"/>
+                    <MenuItem Header="Artist" Click="SortArtist_Click"/>
+                    <MenuItem Header="Genre" Click="SortGenre_Click"/>
+                    <MenuItem Header="Filename" Click="SortFilename_Click"/>
+                    <MenuItem Header="Reverse" Click="SortReverse_Click"/>
+                </ContextMenu>
+            </Button.ContextMenu>
+        </Button>
+        <Button Click="OpenCM" ContextMenuService.Placement="Top" Content="File" Grid.Row="5" Grid.Column="6" Style="{DynamicResource ButtonStyle2}">
+            <Button.ContextMenu>
+                <ContextMenu Style="{DynamicResource ContextMenuStyle}">
+                    <MenuItem Header="Insert Return To Start" Click="PLInsertRepeat_Click"/>
+                    <MenuItem Header="Remove Return To Start" Click="PLRemoveRepeat_Click"/>
+                    <MenuItem Header="Stop After Current" Click="PLStopAfterCurrent_Click"/>
+                    <MenuItem Header="Stop After Selected" Click="PLStopAfterSelected_Click"/>
+                    <MenuItem Header="Remove Stop" Click="PLRemoveStop_Click"/>
+                    <MenuItem Header="Duplicate Entry" Click="PLDuplicate_Click"/>
+                    <MenuItem Header="File Info" Click="PLFileInfo_Click"/>
+                </ContextMenu>
+            </Button.ContextMenu>
+        </Button>
+        <Button Click="OpenCM" ContextMenuService.Placement="Top" Content="Rem" Grid.Row="5" Grid.Column="7" Style="{DynamicResource ButtonStyle2}">
+            <Button.ContextMenu>
+                <ContextMenu Style="{DynamicResource ContextMenuStyle}">
+                    <MenuItem Header="Remove Duplicates" Click="PLRemDup_Click"/>
+                    <MenuItem Header="Remove Missing Files" Click="PLRemMissing_Click"/>
+                    <MenuItem Header="Remove Selected" Click="PLRemSel_Click"/>
+                    <MenuItem Header="Crop" Click="PLCrop_Click"/>
+                </ContextMenu>
+            </Button.ContextMenu>
+        </Button>
+        <Button Click="OpenCM" ContextMenuService.Placement="Top" Content="Move" Grid.Row="5" Grid.Column="8" Style="{DynamicResource ButtonStyle2}">
+            <Button.ContextMenu>
+                <ContextMenu Style="{DynamicResource ContextMenuStyle}">
+                    <MenuItem Header="Move After Current" Click="PLMoveAfterCurrent_Click"/>
+                    <MenuItem Header="Move to Top" Click="PLMoveToTop_Click"/>
+                    <MenuItem Header="Move to Bottom" Click="PLMoveToBottom_Click"/>
+                    <MenuItem Header="Move Up" Click="PLMoveUp_Click"/>
+                    <MenuItem Header="Move Down" Click="PLMoveDown_Click"/>
+                </ContextMenu>
+            </Button.ContextMenu>
+
+        </Button>
+        <Button Click="OpenCM" ContextMenuService.Placement="Top" Content="List" Grid.Row="5" Grid.Column="9" Style="{DynamicResource ButtonStyle2}">
+            <Button.ContextMenu>
+                <ContextMenu Style="{DynamicResource ContextMenuStyle}">
+                    <MenuItem Header="Randomize" Click="PLRandom_Click"/>
+                    <MenuItem Header="Reverse" Click="PLReverse_Click"/>
+                    <MenuItem Header="Invert Selection" Click="PLInvertSel_Click"/>
+                    <MenuItem Header="Select All" Click="PLSelAll_Click"/>
+                    <MenuItem Header="Select None" Click="PLSelNone_Click"/>
+                    <MenuItem Header="Date Added" Click="PLSortDate_Click"/>
+                    <MenuItem Header="Song Title" Click="PLSortTitle_Click"/>
+                    <MenuItem Header="Artist" Click="PLSortArtist_Click"/>
+                    <MenuItem Header="Genre" Click="PLSortGenre_Click"/>
+                    <MenuItem Header="Filename" Click="PLSortFilename_Click"/>
+                </ContextMenu>
+            </Button.ContextMenu>
+        </Button>
+        <Button Click="OpenCM" ContextMenuService.Placement="Top	" Content="Playlist" Grid.Row="5" Grid.Column="10" Style="{DynamicResource ButtonStyle2}">
+            <Button.ContextMenu>
+                <ContextMenu Style="{DynamicResource ContextMenuStyle}">
+					
+                    <MenuItem Header="Save List" Click="PLSaveList_Click"/>
+                    <MenuItem Header="Load List" Click="PLLoadList_Click"/>
+                    <MenuItem Header="New List" Click="PLNewList_Click"/>
+                </ContextMenu>
+            </Button.ContextMenu>
+        </Button>
+        <RepeatButton Content="|&lt;" Grid.Row="8" Grid.Column="0" Delay="500" Interval="500" Click="BackButton_Click" PreviewMouseLeftButtonUp="BackButton2_Click" PreviewKeyUp="BackButton2_Click" Style="{DynamicResource BackButton}"/>
+        <RepeatButton Content="[]" Grid.Row="8" Grid.Column="1" Delay="500" Interval="500" Click="StopButton_Click"  PreviewMouseLeftButtonUp="StopButton2_Click" PreviewKeyUp="StopButton2_Click" Style="{DynamicResource StopButton}"/>
+        <Button Content="&gt;" Grid.Row="8" Grid.Column="2" Click="PlayButton_Click" Style="{DynamicResource PlayButtonStyle}"/>
+        <Button Content="||" Grid.Row="8" Grid.Column="3" Click="PauseButton_Click" Style="{DynamicResource PauseButtonStyle}"/>
+        <RepeatButton Content="&gt;|" Grid.Row="8" Grid.Column="4" Delay="500" Interval="500" Click="NextButton_Click" PreviewMouseLeftButtonUp="NextButton2_Click" PreviewKeyUp="NextButton2_Click" Style="{DynamicResource NextButton}"/>
+        <Slider x:Name="trackWave" Orientation="Vertical" Margin="17.083,5,17.083,0" Grid.Row="3" Grid.Column="11"  ValueChanged="VolChange" HorizontalAlignment="Center" Foreground="#FFF4546F" Height="213.5" VerticalAlignment="Top" />
+        <ToggleButton Content="ToggleButton" Click="Mute_Click" HorizontalAlignment="Left" Style="{DynamicResource ToggleButtonStyle1}" Grid.Column="11" Grid.Row="4" Background="#00DDDDDD" Margin="0,0,-10,0" Width="62.167" />
+        <Button Content="Button" Grid.Column="5" HorizontalAlignment="Left" Margin="10,99,0,0" Grid.Row="3" VerticalAlignment="Top" Width="32" Height="45" Click="AddToPlaylist2" Style="{DynamicResource ArrowButtonStyle}"/>
+
+    </Grid>
+</Window>

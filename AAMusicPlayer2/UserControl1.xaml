@@ -1,0 +1,22 @@
+﻿<UserControl
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	mc:Ignorable="d"
+	x:Class="AAMusicPlayer2.UserControl1"
+	x:Name="UserControl"
+	d:DesignWidth="53.25" d:DesignHeight="51.75">
+
+	<Grid x:Name="LayoutRoot">
+		<Grid>
+			<Path Data="M14.499515,0.097670229 L14.582845,28.015347 4.8185009,19.489053 4.8735794,19.431499 0,19.431499 0,8.6814987 5.0195964,8.6814987 z" Fill="Black" HorizontalAlignment="Left" Height="27.917" Margin="8.833,11.417,0,0" Stretch="Fill" VerticalAlignment="Top" Width="14.583"/>
+			<Path Data="M0,0 L2.167,0 C6.4596679,9.2776667 6.5461798,18.555333 2.167,27.833 L0,27.833 C3.593638,18.555333 3.5226448,9.2776667 0,0 z" Fill="Black" HorizontalAlignment="Left" Height="27.833" Margin="38.752,11.417,0,0" Stretch="Fill" VerticalAlignment="Top" Width="6.669"/>
+			<Path Data="M0,0 L2.167,0 C6.4596679,9.2776667 6.5461798,18.555333 2.167,27.833 L0,27.833 C3.593638,18.555333 3.5226448,9.2776667 0,0 z" Fill="Black" HorizontalAlignment="Left" Height="18.583" Margin="33.333,17.417,0,0" Stretch="Fill" VerticalAlignment="Top" Width="5.419"/>
+			<Path Data="M0,0 L2.167,0 C6.4596679,9.2776667 6.5461798,18.555333 2.167,27.833 L0,27.833 C3.593638,18.555333 3.5226448,9.2776667 0,0 z" Fill="Black" HorizontalAlignment="Left" Height="12.5" Margin="28.333,20.25,0,0" Stretch="Fill" VerticalAlignment="Top" Width="5" RenderTransformOrigin="-0.375,0.52"/>
+			<Ellipse x:Name="ellipse" Fill="#00000000" HorizontalAlignment="Left" Height="51.75" Margin="0" VerticalAlignment="Top" Width="53.25" Stroke="Red" StrokeThickness="4" Visibility="Hidden"/>
+			<Path x:Name="path" Data="M2,2 L36.416667,37.75" Fill="#00000000" HorizontalAlignment="Left" Height="39.75" Margin="6.833,5.25,0,0" Stroke="Red" StrokeThickness="4" VerticalAlignment="Top" Width="38.417" Visibility="Hidden"/>
+		</Grid>
+		<ToggleButton Content="ToggleButton" HorizontalAlignment="Left" VerticalAlignment="Top" d:IsHidden="True"/>
+	</Grid>
+</UserControl>

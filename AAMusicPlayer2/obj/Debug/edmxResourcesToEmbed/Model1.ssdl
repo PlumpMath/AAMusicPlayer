@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="savedlistsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="AAList">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="artist" Type="nvarchar" MaxLength="100" />
+    <Property Name="title" Type="nvarchar" MaxLength="100" />
+    <Property Name="genre" Type="nvarchar" MaxLength="100" />
+    <Property Name="filename" Type="nvarchar" MaxLength="100" />
+    <Property Name="path" Type="nvarchar" MaxLength="999" />
+    <Property Name="length" Type="int" />
+    <Property Name="dateAdded" Type="datetime" />
+    <Property Name="album" Type="nvarchar" MaxLength="100" />
+    <Property Name="order" Type="int" />
+  </EntityType>
+  <EntityType Name="AAPList">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="artist" Type="nvarchar" MaxLength="100" />
+    <Property Name="title" Type="nvarchar" MaxLength="100" />
+    <Property Name="genre" Type="nvarchar" MaxLength="100" />
+    <Property Name="filename" Type="nvarchar" MaxLength="100" />
+    <Property Name="path" Type="nvarchar" MaxLength="999" />
+    <Property Name="length" Type="int" />
+    <Property Name="dateAdded" Type="datetime" />
+    <Property Name="album" Type="nvarchar" MaxLength="100" />
+    <Property Name="order" Type="int" />
+    <Property Name="after" Type="int" />
+  </EntityType>
+  <EntityContainer Name="savedlistsModelStoreContainer">
+    <EntitySet Name="AAList" EntityType="Self.AAList" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AAPList" EntityType="Self.AAPList" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

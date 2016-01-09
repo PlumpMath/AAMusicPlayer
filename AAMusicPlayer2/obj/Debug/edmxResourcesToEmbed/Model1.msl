@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="savedlistsModelStoreContainer" CdmEntityContainer="savedlistsEntities1">
+    <EntitySetMapping Name="AALists">
+      <EntityTypeMapping TypeName="savedlistsModel.AAList">
+        <MappingFragment StoreEntitySet="AAList">
+          <ScalarProperty Name="order" ColumnName="order" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="artist" ColumnName="artist" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="genre" ColumnName="genre" />
+          <ScalarProperty Name="filename" ColumnName="filename" />
+          <ScalarProperty Name="path" ColumnName="path" />
+          <ScalarProperty Name="length" ColumnName="length" />
+          <ScalarProperty Name="dateAdded" ColumnName="dateAdded" />
+          <ScalarProperty Name="album" ColumnName="album" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AAPLists">
+      <EntityTypeMapping TypeName="savedlistsModel.AAPList">
+        <MappingFragment StoreEntitySet="AAPList">
+          <ScalarProperty Name="after" ColumnName="after" />
+          <ScalarProperty Name="order" ColumnName="order" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="artist" ColumnName="artist" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="genre" ColumnName="genre" />
+          <ScalarProperty Name="filename" ColumnName="filename" />
+          <ScalarProperty Name="path" ColumnName="path" />
+          <ScalarProperty Name="length" ColumnName="length" />
+          <ScalarProperty Name="dateAdded" ColumnName="dateAdded" />
+          <ScalarProperty Name="album" ColumnName="album" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
